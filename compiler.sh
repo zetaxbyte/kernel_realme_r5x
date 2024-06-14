@@ -12,14 +12,14 @@ normal="\033[0m"
 
 zipname="Zakar-kernel-78hz-gpu-clk-400mhz.zip"
 
-if [ -d $pwd../clang-r498229b ] ; then
+if [ -d $(pwd)/../clang-r498229b ] ; then
 echo -e "\n lets's go \n"
 else
 echo -e "\n $red clang-r498229b dir not found!!! $normal \n"
 sleep 1
 echo -e "$yellow wait.. Dwonloading clang-r498229b... $normal \n"
 sleep 1
-mkdir -p $pwd../clang-r498229b ; wget -P $pwd../clang-r498229b/ https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r498229b.tar.gz ; sleep 2 ; tar -xf $pwd../clang-r498229b/clang-r498229b.tar.gz -C $pwd../clang-r498229b/ && rm -rf $pwd../clang-r498229b.tar.gz && ls $pwd../clang-r498229b
+mkdir -p $(pwd)/../clang-r498229b ; wget -P $(pwd)/../clang-r498229b/ https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r498229b.tar.gz ; sleep 2 ; tar -xf $(pwd)/../clang-r498229b/clang-r498229b.tar.gz -C $(pwd)/../clang-r498229b/ && rm -rf $(pwd)/../clang-r498229b.tar.gz && ls $(pwd)/../clang-r498229b
 sleep 1
 echo
 echo -e "\n $green okay Downloading done... $normal \n"
@@ -87,10 +87,10 @@ echo -e "$red!ups...something wrong!?\033[0m"
 fi
 
 any_kernel_setup() {
-if [ -d $pwd../anykernel_r5x/ ] ; then
+if [ -d $(pwd)/../anykernel_r5x/ ] ; then
 echo "setup"
 else
-git clone https://github.com/zetaxbyte/anykernel_r5x.git $pwd../anykernel_r5x/
+git clone https://github.com/zetaxbyte/anykernel_r5x.git $(pwd)/../anykernel_r5x/
 fi
 }
 
@@ -101,12 +101,12 @@ sleep 0.5
 zip_function() {
 if [[ -f out/arch/arm64/boot/Image.gz-dtb || out/arch/arm64/boot/dtbo.img ]] ; then
 echo -e "$yellow zipping Kernel to flashabel zip ! $normal"
-rm -rf $pwd../anykernel_r5x/Image.gz-dtb
-rm -rf $pwd../anykernel_r5x/dtbo.img
+rm -rf $(pwd)/../anykernel_r5x/Image.gz-dtb
+rm -rf $(pwd)/../anykernel_r5x/dtbo.img
 sleep 0.5
-cp out/arch/arm64/boot/Image.gz-dtb $pwd../anykernel_r5x/
-cp out/arch/arm64/boot/dtbo.img $pwd../anykernel_r5x/
-cd $pwd../anykernel_r5x/ && zip -r $zipname *
+cp out/arch/arm64/boot/Image.gz-dtb $(pwd)/../anykernel_r5x/
+cp out/arch/arm64/boot/dtbo.img $(pwd)/../anykernel_r5x/
+cd $(pwd)/../anykernel_r5x/ && zip -r $zipname *
 mv $zipname "$OLDPWD"
 cd -
 sleep 1
