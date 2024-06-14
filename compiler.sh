@@ -56,7 +56,7 @@ export KBUILD_BUILD_HOST=Dark-Anggle
 
 # change TC_DIR(directory) on where you clone proton-clang toolchain
 
-TC_DIR=$(pwd)../clang-r498229b
+TC_DIR=$(pwd)/../clang-r498229b
 
 # do not modify export PATCH it's been including with TC_DIR
 
