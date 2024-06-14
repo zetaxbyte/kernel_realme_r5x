@@ -79,6 +79,9 @@ echo -e "\n $yellow BUILD COMPLITE  $((COMPILE_TIME / 60)) minute(s) and $((COMP
 sleep 0.5
 rm -rf $zipname
 sleep 1
+any_kernel_setup
+sleep 1
+zip_function
 else
 COMPILE_END=$(date +"%s")
 COMPILE_TIME=$((COMPILE_END - COMPILE_START))
@@ -93,10 +96,6 @@ else
 git clone https://github.com/zetaxbyte/anykernel_r5x.git $(pwd)/../anykernel_r5x/
 fi
 }
-
-any_kernel_setup
-
-sleep 0.5
 
 zip_function() {
 if [[ -f out/arch/arm64/boot/Image.gz-dtb || out/arch/arm64/boot/dtbo.img ]] ; then
@@ -121,5 +120,3 @@ else
 echo -e "$red failed to zip"
 fi
 }
-
-zip_function
