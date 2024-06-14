@@ -69,6 +69,38 @@ make O=out ARCH=arm64 $DEFCONFIG
 
 make -j$(nproc --all) O=out ARCH=arm64 CC=clang LD=ld.lld AR=llvm-ar AS=llvm-as NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- 2>&1 | tee log.txt
 
+any_kernel_setup() {
+if [ -d $(pwd)/../anykernel_r5x/ ] ; then
+echo "setup"
+else
+git clone https://github.com/zetaxbyte/anykernel_r5x.git $(pwd)/../anykernel_r5x/
+fi
+}
+
+zip_function() {
+    if [[ -f out/arch/arm64/boot/Image.gz-dtb ]] && [[ -f out/arch/arm64/boot/dtbo.img ]] ; then
+        echo -e "$yellow zipping Kernel to flashable zip ! "
+        rm -rf $(pwd)/../anykernel_r5x/Image.gz-dtb
+        rm -rf $(pwd)/../anykernel_r5x/dtbo.img
+        sleep 0.5
+        cp out/arch/arm64/boot/Image.gz-dtb $(pwd)/../anykernel_r5x/
+        cp out/arch/arm64/boot/dtbo.img $(pwd)/../anykernel_r5x/
+        cd $(pwd)/../anykernel_r5x/ && zip -r $zipname *
+        mv $zipname "$OLDPWD"
+        cd -
+        sleep 1
+        echo
+        echo -e "\033[96msize \n"
+        du -sh $zipname
+        sleep 1
+        echo -e "\n$green====== $normal"
+        echo -e "$green done √ $normal"
+        echo -e "$green====== $normal\n"
+    else
+        echo -e "$red failed to zip"
+    fi
+}
+
 if [[ -f out/arch/arm64/boot/Image.gz ]] ; then
 COMPILE_END=$(date +"%s")
 COMPILE_TIME=$((COMPILE_END - COMPILE_START))
@@ -88,35 +120,3 @@ COMPILE_TIME=$((COMPILE_END - COMPILE_START))
 echo -e "\n $red BUILD FAILED  $((COMPILE_TIME / 60)) minute(s) and $((COMPILE_TIME % 60)) second(s) \n"
 echo -e "$red!ups...something wrong!?\033[0m"
 fi
-
-any_kernel_setup() {
-if [ -d $(pwd)/../anykernel_r5x/ ] ; then
-echo "setup"
-else
-git clone https://github.com/zetaxbyte/anykernel_r5x.git $(pwd)/../anykernel_r5x/
-fi
-}
-
-zip_function() {
-if [[ -f out/arch/arm64/boot/Image.gz-dtb || out/arch/arm64/boot/dtbo.img ]] ; then
-echo -e "$yellow zipping Kernel to flashabel zip ! $normal"
-rm -rf $(pwd)/../anykernel_r5x/Image.gz-dtb
-rm -rf $(pwd)/../anykernel_r5x/dtbo.img
-sleep 0.5
-cp out/arch/arm64/boot/Image.gz-dtb $(pwd)/../anykernel_r5x/
-cp out/arch/arm64/boot/dtbo.img $(pwd)/../anykernel_r5x/
-cd $(pwd)/../anykernel_r5x/ && zip -r $zipname *
-mv $zipname "$OLDPWD"
-cd -
-sleep 1
-echo
-echo -e "\033[93msize \n"
-du -sh $zipname
-sleep 1
-echo -e "\n$green ====== $normal"
-echo -e "$green done √ $normal"
-echo -e "$green ====== $normal\n"
-else
-echo -e "$red failed to zip"
-fi
-}
