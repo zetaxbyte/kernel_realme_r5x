@@ -108,6 +108,7 @@ cp out/arch/arm64/boot/Image.gz-dtb $pwd../anykernel_r5x/
 cp out/arch/arm64/boot/dtbo.img $pwd../anykernel_r5x/
 cd $pwd../anykernel_r5x/ && zip -r $zipname *
 mv $zipname "$OLDPWD"
+cd -
 sleep 1
 echo
 echo -e "\033[93msize \n"
