@@ -12,9 +12,7 @@ normal="\033[0m"
 
 zipname="Zakar-kernel-78hz-gpu-clk-400mhz.zip"
 
-if [ -d $(pwd)/../clang-r498229b ] ; then
-echo -e "\n lets's go \n"
-else
+if ! [ -d $(pwd)/../clang-r498229b ] ; then
 echo -e "\n $red clang-r498229b dir not found!!! $normal \n"
 sleep 1
 echo -e "$yellow wait.. Dwonloading clang-r498229b... $normal \n"
