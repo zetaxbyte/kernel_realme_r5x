@@ -83,7 +83,7 @@ zip_function() {
         sleep 0.5
         cp out/arch/arm64/boot/Image.gz-dtb $(pwd)/../anykernel_r5x/
         cp out/arch/arm64/boot/dtbo.img $(pwd)/../anykernel_r5x/
-        cd $(pwd)/../anykernel_r5x/ && zip -r $zipname *
+        cd $(pwd)/../anykernel_r5x/ && zip -r9 $zipname *
         mv $zipname "$OLDPWD"
         cd -
         sleep 1
