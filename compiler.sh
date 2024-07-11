@@ -10,7 +10,7 @@ blue="\033[94m"
 yellow="\033[93m"
 normal="\033[0m"
 
-zipname="Trinket-Kernel-KSU-(5-5i-5s-5nfc).zip"
+zipname="Trinket-Kernel-KSU-R5X.zip"
 
 if ! [ -d $(pwd)/../clang-r498229b ] ; then
 echo -e "\n $red clang-r498229b dir not found!!! $normal \n"
