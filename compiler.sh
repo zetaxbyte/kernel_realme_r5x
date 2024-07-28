@@ -12,6 +12,10 @@ normal="\033[0m"
 
 zipname="Trinket-Kernel-KSU-R5X.zip"
 
+if ! [ -d "$(pwd)/KernelSU/kernel" ] ; then
+rm -rf KernelSU && rm -rf drivers/kernelsu && curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.2
+fi
+
 if ! [ -d $(pwd)/../clang-r498229b ] ; then
 echo -e "\n $red clang-r498229b dir not found!!! $normal \n"
 sleep 1
